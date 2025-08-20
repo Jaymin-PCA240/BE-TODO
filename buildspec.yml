@@ -6,13 +6,13 @@ phases:
       nodejs: 18
     commands:
       - echo "=== Installing dependencies ==="
-      - npm install
+      - npm ci
   build:
     commands:
       - echo "=== Generating Prisma Client ==="
       - npx prisma generate
       - echo "=== Building TypeScript ==="
-      - npx tsc
+      - npm run build
       - echo "=== Running Prisma Migrate Deploy ==="
       - npx prisma migrate deploy
 artifacts:
