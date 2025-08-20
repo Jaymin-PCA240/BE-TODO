@@ -2,10 +2,10 @@
 set -e
 
 APP_DIR="/home/ec2-user/app"
-
+cd $APP_DIR
 echo "Running Prisma migrations..."
 npx prisma migrate deploy
 
 echo "=== Installing production dependencies ==="
-cd $APP_DIR
+
 npm ci --only=production
