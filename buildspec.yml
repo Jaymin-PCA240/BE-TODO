@@ -20,6 +20,5 @@ artifacts:
     - dist/**/*
     - prisma/**/*
     - package.json
-    - package-lock.json
     - appspec.yml
     - scripts/**/*
