@@ -1,6 +1,7 @@
 import express from 'express'
 import { PrismaClient } from '@prisma/client'
 import { createTodoSchema, updateTodoSchema } from '../validators/todo'
+import logger from '../logger'
 
 const prisma = new PrismaClient()
 const router = express.Router()
@@ -8,6 +9,7 @@ const router = express.Router()
 // list
 router.get('/', async (req, res) => {
   const todos = await prisma.todo.findMany({ orderBy: { createdAt: 'desc' } })
+  logger.info(`Fetched ${todos.length} todos`)
   res.json(todos)
 })
 
@@ -25,6 +27,7 @@ router.post('/', async (req, res) => {
   if (!parse.success) return res.status(400).json({ error: parse.error.format() })
   const data = parse.data
   const todo = await prisma.todo.create({ data })
+  logger.info(`Created new todo: ${todo.id}`)
   res.status(201).json(todo)
 })
 
