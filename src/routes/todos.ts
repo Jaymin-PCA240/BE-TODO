@@ -34,11 +34,15 @@ router.post('/', async (req, res) => {
 // update
 router.put('/:id', async (req, res) => {
   const id = Number(req.params.id)
+  logger.info(`completed todo id: ${id}`)
   const parse = updateTodoSchema.safeParse(req.body)
+  logger.info(`completed todo parse: ${parse}`)
   if (!parse.success) return res.status(400).json({ error: parse.error.format() })
   const data = parse.data
   try {
+    logger.info(`completed todo: ${data}`)
     const todo = await prisma.todo.update({ where: { id }, data })
+    logger.info(`completed todo: ${todo}`)
     res.json(todo)
   } catch (e) {
     res.status(404).send('Not found or update failed')
